@@ -4,18 +4,19 @@ import PostList from "./components/PostList";
 import Pagination from "./components/Pagination"
 import queryString from 'query-string';
 import PostFiltersForm from "./components/PostFiltersForm";
+import Clock from "./components/Clock";
 
 function App() {
 
   const [postList, setPostList] = useState([]);
   const [pagination, setPagination] = useState({
-    _page:1 ,
-    _limit:10,
-    _totalRows:1
+    _page: 1,
+    _limit: 10,
+    _totalRows: 1
   });
   const [filters, setFilters] = useState({
-    _limit:10,
-    _page:1,
+    _limit: 10,
+    _page: 1,
     title_like: '',
   });
 
@@ -41,28 +42,29 @@ function App() {
     fetchPostList();
   }, [filters])
 
-  function handleFiltersChange(newFilters){
-      console.log('New filters: ', newFilters)
-      setFilters({
-        ...filters,
-        _page:1,
-        title_like: newFilters.searchTerm,
-      })
+  function handleFiltersChange(newFilters) {
+    console.log('New filters: ', newFilters)
+    setFilters({
+      ...filters,
+      _page: 1,
+      title_like: newFilters.searchTerm,
+    })
   }
   return (
     <div className="App">
+      <Clock />
       <PostFiltersForm onSubmit={handleFiltersChange}></PostFiltersForm>
 
       <PostList posts={postList}></PostList>
 
       <Pagination pagination={pagination}
-            onPageChange={handlePageChange}
+        onPageChange={handlePageChange}
       ></Pagination>
     </div>
   );
-  
-  function handlePageChange(newPage){
-    console.log('New page: ',newPage)
+
+  function handlePageChange(newPage) {
+    console.log('New page: ', newPage)
     setFilters({
       ...filters,
       _page: newPage,
